@@ -13,6 +13,8 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 MODEL_PATH = os.path.join(BASE_DIR, "models", "dengue_diagnosis_model.pkl")
 
 model = joblib.load(MODEL_PATH)
+st.error(f"MODEL EXPECTS: {model.n_features_in_} FEATURES")
+
 
 # ---------------- INPUTS ----------------
 Age = st.number_input("Age", 1, 120, 25)
