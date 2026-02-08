@@ -6,6 +6,8 @@ st.set_page_config(page_title="Dengue", layout="centered")
 st.title("🦟 Dengue Prediction (CBC Based)")
 
 model = joblib.load("models/dengue_diagnosis_model.pkl")
+st.write("Loaded object type:", type(model))
+
 
 st.markdown("---")
 
