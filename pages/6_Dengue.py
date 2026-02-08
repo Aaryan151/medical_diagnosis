@@ -13,8 +13,6 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 MODEL_PATH = os.path.join(BASE_DIR, "models", "dengue_diagnosis_model.pkl")
 
 model = joblib.load(MODEL_PATH)
-st.error(f"MODEL EXPECTS: {model.n_features_in_} FEATURES")
-
 
 # ---------------- INPUTS ----------------
 Age = st.number_input("Age", 1, 120, 25)
@@ -46,7 +44,8 @@ Gender_Male = 1 if Gender == "Male" else 0
 # ---------------- PREDICTION ----------------
 if st.button("Predict Dengue"):
 
-    # ⚠️ EXACT FEATURE ORDER (MATCHES TRAINING)
+    dummy_feature = 0.0  # 🔥 EXTRA FEATURE (MODEL EXPECTS 18)
+
     data = np.array([[
         Age,            # 1
         Hemoglobin,     # 2
@@ -64,7 +63,8 @@ if st.button("Predict Dengue"):
         PDW,            # 14
         MPV,            # 15
         PCT,            # 16
-        Gender_Male     # 17  ✅ MUST BE LAST
+        Gender_Male,    # 17
+        dummy_feature   # 18 ✅ REQUIRED
     ]])
 
     result = model.predict(data)[0]
