@@ -5,84 +5,66 @@ st.set_page_config(
     layout="wide"
 )
 
+# ---------- CUSTOM CSS ----------
+# This CSS targets Streamlit buttons specifically to make them look like your cards
+st.markdown("""
+<style>
+    /* Style the actual Streamlit button to look like a card */
+    div.stButton > button {
+        background: linear-gradient(135deg, #b31217, #e52d27) !important;
+        color: white !important;
+        height: 180px !important;
+        width: 100% !important;
+        border-radius: 20px !important;
+        border: none !important;
+        transition: all 0.3s ease !important;
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        justify-content: center !important;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.1) !important;
+        white-space: normal !important; /* Allows text wrapping */
+        padding: 20px !important;
+    }
+
+    /* Hover effect */
+    div.stButton > button:hover {
+        transform: scale(1.03) !important;
+        box-shadow: 0 12px 30px rgba(229, 45, 39, 0.35) !important;
+        border: none !important;
+    }
+
+    /* Target the text inside the button */
+    div.stButton p {
+        font-size: 22px !important;
+        font-weight: 600 !important;
+    }
+</style>
+""", unsafe_allow_html=True)
+
 # ---------- HEADER ----------
 st.markdown("""
-<div style="
-    background: linear-gradient(90deg,#b31217,#e52d27);
-    padding: 35px;
-    border-radius: 18px;
-    text-align: center;
-    margin-bottom: 40px;
-">
+<div style="background: linear-gradient(90deg,#b31217,#e52d27); padding: 35px; border-radius: 18px; text-align: center; margin-bottom: 40px;">
     <h1 style="color:white; margin-bottom:5px;">Medical Diagnosis System</h1>
     <p style="color:#f2f2f2;">Early detection saves lives</p>
 </div>
 """, unsafe_allow_html=True)
 
-# ---------- CARD STYLE ----------
-card_style = """
-<style>
-.card {
-    background: linear-gradient(135deg,#b31217,#e52d27);
-    padding: 35px;
-    border-radius: 20px;
-    color: white;
-    height: 170px;
-    cursor: pointer;
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
-}
-.card:hover {
-    transform: scale(1.03);
-    box-shadow: 0 12px 30px rgba(255,0,0,0.35);
-}
-.title {
-    font-size: 24px;
-    font-weight: 600;
-}
-.subtitle {
-    font-size: 15px;
-    opacity: 0.9;
-}
-</style>
-"""
-st.markdown(card_style, unsafe_allow_html=True)
-
 # ---------- GRID ----------
 row1 = st.columns(3)
 row2 = st.columns(3)
 
-# ---------- HEART ----------
-with row1[0]:
-    if st.button("❤️ Heart Disease", use_container_width=True):
-        st.switch_page("pages/1_Heart_Disease.py")
-    st.markdown("<div class='card'><div class='title'>Heart Disease</div><div class='subtitle'>Cardiac risk prediction</div></div>", unsafe_allow_html=True)
+# Define the cards data for easier rendering
+cards = [
+    {"label": "❤️ Heart Disease\n\nCardiac risk prediction", "page": "pages/1_Heart_Disease.py", "col": row1[0]},
+    {"label": "🫁 Lung Cancer\n\nLung cancer risk assessment", "page": "pages/2_Lung_Cancer.py", "col": row1[1]},
+    {"label": "🩸 Diabetes\n\nBlood sugar & diabetes risk", "page": "pages/3_Diabetes.py", "col": row1[2]},
+    {"label": "🧠 Kidney Disease\n\nKidney function analysis", "page": "pages/4_Kidney_Disease.py", "col": row2[0]},
+    {"label": "🦋 Thyroid\n\nHormonal disorder detection", "page": "pages/5_Thyroid.py", "col": row2[1]},
+    {"label": "🦟 Dengue\n\nCBC based dengue detection", "page": "pages/6_Dengue.py", "col": row2[2]},
+]
 
-# ---------- LUNG ----------
-with row1[1]:
-    if st.button("🫁 Lung Cancer", use_container_width=True):
-        st.switch_page("pages/2_Lung_Cancer.py")
-    st.markdown("<div class='card'><div class='title'>Lung Cancer</div><div class='subtitle'>Lung cancer risk assessment</div></div>", unsafe_allow_html=True)
-
-# ---------- DIABETES ----------
-with row1[2]:
-    if st.button("🩸 Diabetes", use_container_width=True):
-        st.switch_page("pages/3_Diabetes.py")
-    st.markdown("<div class='card'><div class='title'>Diabetes</div><div class='subtitle'>Blood sugar & diabetes risk</div></div>", unsafe_allow_html=True)
-
-# ---------- KIDNEY ----------
-with row2[0]:
-    if st.button("🧠 Kidney Disease", use_container_width=True):
-        st.switch_page("pages/4_Kidney_Disease.py")
-    st.markdown("<div class='card'><div class='title'>Kidney Disease</div><div class='subtitle'>Kidney function analysis</div></div>", unsafe_allow_html=True)
-
-# ---------- THYROID ----------
-with row2[1]:
-    if st.button("🦋 Thyroid", use_container_width=True):
-        st.switch_page("pages/5_Thyroid.py")
-    st.markdown("<div class='card'><div class='title'>Thyroid</div><div class='subtitle'>Hormonal disorder detection</div></div>", unsafe_allow_html=True)
-
-# ---------- DENGUE ----------
-with row2[2]:
-    if st.button("🦟 Dengue", use_container_width=True):
-        st.switch_page("pages/6_Dengue.py")
-    st.markdown("<div class='card'><div class='title'>Dengue</div><div class='subtitle'>CBC based dengue detection</div></div>", unsafe_allow_html=True)
+for card in cards:
+    with card["col"]:
+        if st.button(card["label"], key=card["page"]):
+            st.switch_page(card["page"])
