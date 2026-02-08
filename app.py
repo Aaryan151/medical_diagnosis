@@ -9,26 +9,25 @@ st.title("🩺 Intelligent Medical Diagnosis System")
 st.write("Click on a disease to start prediction")
 st.markdown("---")
 
-# ---------- CARD STYLE ----------
-CARD_STYLE = """
+# ---------- STYLE ----------
+st.markdown("""
 <style>
 .card {
-    background-color: #111827;
-    padding: 25px;
-    border-radius: 15px;
-    box-shadow: 0 0 15px rgba(0,0,0,0.4);
+    background-color: #0f172a;
+    padding: 30px;
+    border-radius: 16px;
     text-align: center;
+    box-shadow: 0 0 15px rgba(0,0,0,0.5);
     height: 200px;
 }
 .card h3 {
     color: white;
 }
 .card p {
-    color: #9CA3AF;
+    color: #9ca3af;
 }
 </style>
-"""
-st.markdown(CARD_STYLE, unsafe_allow_html=True)
+""", unsafe_allow_html=True)
 
 # ---------- GRID ----------
 col1, col2, col3 = st.columns(3)
@@ -40,7 +39,7 @@ with col1:
         <p>Cardiac risk prediction</p>
     </div>
     """, unsafe_allow_html=True)
-    if st.button("Open Heart Disease"):
+    if st.button("Open Heart Disease", key="heart"):
         st.switch_page("pages/1_Heart_Disease.py")
 
 with col2:
@@ -50,7 +49,7 @@ with col2:
         <p>Lung cancer risk assessment</p>
     </div>
     """, unsafe_allow_html=True)
-    if st.button("Open Lung Cancer"):
+    if st.button("Open Lung Cancer", key="lung"):
         st.switch_page("pages/2_Lung_Cancer.py")
 
 with col3:
@@ -60,7 +59,7 @@ with col3:
         <p>Blood sugar & diabetes risk</p>
     </div>
     """, unsafe_allow_html=True)
-    if st.button("Open Diabetes"):
+    if st.button("Open Diabetes", key="diabetes"):
         st.switch_page("pages/3_Diabetes.py")
 
 st.markdown("")
@@ -74,7 +73,7 @@ with col4:
         <p>Kidney function analysis</p>
     </div>
     """, unsafe_allow_html=True)
-    if st.button("Open Kidney Disease"):
+    if st.button("Open Kidney Disease", key="kidney"):
         st.switch_page("pages/4_Kidney_Disease.py")
 
 with col5:
@@ -84,7 +83,7 @@ with col5:
         <p>Hormonal disorder detection</p>
     </div>
     """, unsafe_allow_html=True)
-    if st.button("Open Thyroid"):
+    if st.button("Open Thyroid", key="thyroid"):
         st.switch_page("pages/5_Thyroid.py")
 
 with col6:
@@ -94,5 +93,5 @@ with col6:
         <p>CBC based dengue detection</p>
     </div>
     """, unsafe_allow_html=True)
-    if st.button("Open Dengue"):
+    if st.button("Open Dengue", key="dengue"):
         st.switch_page("pages/6_Dengue.py")
