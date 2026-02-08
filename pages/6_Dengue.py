@@ -7,6 +7,8 @@ st.title("🦟 Dengue Prediction (CBC Based)")
 
 # ---------- LOAD MODEL ----------
 obj = joblib.load("models/dengue_diagnosis_model.pkl")
+st.write("Model expects features:", model.n_features_in_)
+
 
 # If your pkl is a dict (VERY IMPORTANT)
 if isinstance(obj, dict):
