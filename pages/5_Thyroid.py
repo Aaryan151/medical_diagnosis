@@ -6,7 +6,6 @@ st.set_page_config(page_title="Thyroid", layout="centered")
 st.title("🦋 Thyroid Disease Prediction")
 
 model = joblib.load("models/thyroid_model.pkl")
-st.write("Model expects:", model.n_features_in_)
 
 
 st.markdown("---")
