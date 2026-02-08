@@ -1,97 +1,66 @@
 import streamlit as st
 
-st.set_page_config(
-    page_title="Medical Diagnosis System",
-    layout="wide"
-)
+st.set_page_config(page_title="Medical Diagnosis System", layout="wide")
 
-st.title("🩺 Intelligent Medical Diagnosis System")
-st.write("Click on a disease to start prediction")
-st.markdown("---")
-
-# ---------- STYLE ----------
 st.markdown("""
 <style>
 .card {
-    background-color: #0f172a;
+    background: linear-gradient(145deg, #0f172a, #020617);
+    border-radius: 18px;
     padding: 30px;
-    border-radius: 16px;
-    text-align: center;
-    box-shadow: 0 0 15px rgba(0,0,0,0.5);
-    height: 200px;
-}
-.card h3 {
+    height: 220px;
     color: white;
+    position: relative;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+    transition: transform 0.2s ease;
 }
-.card p {
-    color: #9ca3af;
+.card:hover {
+    transform: scale(1.03);
+}
+.card-button {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+}
+.card-title {
+    font-size: 26px;
+    font-weight: 700;
+}
+.card-desc {
+    margin-top: 12px;
+    font-size: 16px;
+    color: #cbd5f5;
 }
 </style>
 """, unsafe_allow_html=True)
 
-# ---------- GRID ----------
+st.title("🩺 Intelligent Medical Diagnosis System")
+st.write("Click on any disease card to start prediction")
+
+st.markdown("---")
+
 col1, col2, col3 = st.columns(3)
 
-with col1:
-    st.markdown("""
-    <div class="card">
-        <h3>❤️ Heart Disease</h3>
-        <p>Cardiac risk prediction</p>
-    </div>
-    """, unsafe_allow_html=True)
-    if st.button("Open Heart Disease", key="heart"):
-        st.switch_page("pages/1_Heart_Disease.py")
+def disease_card(col, title, desc, page):
+    with col:
+        st.markdown(f"""
+        <div class="card">
+            <div class="card-title">{title}</div>
+            <div class="card-desc">{desc}</div>
+        </div>
+        """, unsafe_allow_html=True)
 
-with col2:
-    st.markdown("""
-    <div class="card">
-        <h3>🫁 Lung Cancer</h3>
-        <p>Lung cancer risk assessment</p>
-    </div>
-    """, unsafe_allow_html=True)
-    if st.button("Open Lung Cancer", key="lung"):
-        st.switch_page("pages/2_Lung_Cancer.py")
+        if st.button(" ", key=page):
+            st.switch_page(page)
 
-with col3:
-    st.markdown("""
-    <div class="card">
-        <h3>🩸 Diabetes</h3>
-        <p>Blood sugar & diabetes risk</p>
-    </div>
-    """, unsafe_allow_html=True)
-    if st.button("Open Diabetes", key="diabetes"):
-        st.switch_page("pages/3_Diabetes.py")
+# ---------- ROW 1 ----------
+disease_card(col1, "❤️ Heart Disease", "Cardiac risk prediction", "pages/1_Heart_Disease.py")
+disease_card(col2, "🫁 Lung Cancer", "Lung cancer risk assessment", "pages/2_Lung_Cancer.py")
+disease_card(col3, "🩸 Diabetes", "Blood sugar & diabetes risk", "pages/3_Diabetes.py")
 
-st.markdown("")
-
+# ---------- ROW 2 ----------
 col4, col5, col6 = st.columns(3)
 
-with col4:
-    st.markdown("""
-    <div class="card">
-        <h3>🧠 Kidney Disease</h3>
-        <p>Kidney function analysis</p>
-    </div>
-    """, unsafe_allow_html=True)
-    if st.button("Open Kidney Disease", key="kidney"):
-        st.switch_page("pages/4_Kidney_Disease.py")
-
-with col5:
-    st.markdown("""
-    <div class="card">
-        <h3>🦋 Thyroid</h3>
-        <p>Hormonal disorder detection</p>
-    </div>
-    """, unsafe_allow_html=True)
-    if st.button("Open Thyroid", key="thyroid"):
-        st.switch_page("pages/5_Thyroid.py")
-
-with col6:
-    st.markdown("""
-    <div class="card">
-        <h3>🦟 Dengue</h3>
-        <p>CBC based dengue detection</p>
-    </div>
-    """, unsafe_allow_html=True)
-    if st.button("Open Dengue", key="dengue"):
-        st.switch_page("pages/6_Dengue.py")
+disease_card(col4, "🧠 Kidney Disease", "Kidney function analysis", "pages/4_Kidney_Disease.py")
+disease_card(col5, "🦋 Thyroid", "Hormonal disorder detection", "pages/5_Thyroid.py")
+disease_card(col6, "🦟 Dengue", "CBC based dengue detection", "pages/6_Dengue.py")
