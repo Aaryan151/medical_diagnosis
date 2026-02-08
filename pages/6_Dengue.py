@@ -5,7 +5,7 @@ import joblib
 st.set_page_config(page_title="Dengue", layout="centered")
 st.title("🦟 Dengue Prediction (CBC Based)")
 
-model = joblib.load("models/dengue_model.pkl")
+model = joblib.load("models/dengue_diagnosis_model.pk")
 
 st.markdown("---")
 
