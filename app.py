@@ -8,118 +8,81 @@ st.set_page_config(
 # ---------- HEADER ----------
 st.markdown("""
 <div style="
-    background: linear-gradient(90deg, #b91c1c, #7f1d1d);
-    padding: 32px;
-    border-radius: 14px;
-    color: white;
+    background: linear-gradient(90deg,#b31217,#e52d27);
+    padding: 35px;
+    border-radius: 18px;
     text-align: center;
+    margin-bottom: 40px;
 ">
-    <h1>Medical Diagnosis System</h1>
-    <p>Early detection saves lives</p>
+    <h1 style="color:white; margin-bottom:5px;">Medical Diagnosis System</h1>
+    <p style="color:#f2f2f2;">Early detection saves lives</p>
 </div>
 """, unsafe_allow_html=True)
 
-st.markdown("<br>", unsafe_allow_html=True)
-
-# ---------- CARD CSS ----------
-st.markdown("""
+# ---------- CARD STYLE ----------
+card_style = """
 <style>
 .card {
-    position: relative;
-    background: linear-gradient(135deg, #dc2626, #7f1d1d);
-    padding: 30px;
-    border-radius: 16px;
+    background: linear-gradient(135deg,#b31217,#e52d27);
+    padding: 35px;
+    border-radius: 20px;
+    color: white;
     height: 170px;
-    box-shadow: 0 14px 30px rgba(0,0,0,0.25);
-    transition: transform 0.25s ease, box-shadow 0.25s ease;
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 .card:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 22px 45px rgba(0,0,0,0.35);
+    transform: scale(1.03);
+    box-shadow: 0 12px 30px rgba(255,0,0,0.35);
 }
-.card h2 {
-    margin: 0;
-    color: white;
-    font-size: 26px;
+.title {
+    font-size: 24px;
+    font-weight: 600;
 }
-.card p {
-    margin-top: 10px;
-    color: #fef2f2;
+.subtitle {
     font-size: 15px;
-}
-.card a {
-    position: absolute;
-    inset: 0;
-    z-index: 10;
+    opacity: 0.9;
 }
 </style>
-""", unsafe_allow_html=True)
+"""
+st.markdown(card_style, unsafe_allow_html=True)
 
-# ---------- ROW 1 ----------
-c1, c2, c3 = st.columns(3)
+# ---------- GRID ----------
+row1 = st.columns(3)
+row2 = st.columns(3)
 
-with c1:
-    st.markdown("""
-    <div class="card">
-        <h2>❤️ Heart Disease</h2>
-        <p>Cardiac risk prediction</p>
-        <a href="/Heart_Disease"></a>
-    </div>
-    """, unsafe_allow_html=True)
+# ---------- HEART ----------
+with row1[0]:
+    if st.button("❤️ Heart Disease", use_container_width=True):
+        st.switch_page("pages/1_Heart_Disease.py")
+    st.markdown("<div class='card'><div class='title'>Heart Disease</div><div class='subtitle'>Cardiac risk prediction</div></div>", unsafe_allow_html=True)
 
-with c2:
-    st.markdown("""
-    <div class="card">
-        <h2>🫁 Lung Cancer</h2>
-        <p>Lung cancer risk assessment</p>
-        <a href="/Lung_Cancer"></a>
-    </div>
-    """, unsafe_allow_html=True)
+# ---------- LUNG ----------
+with row1[1]:
+    if st.button("🫁 Lung Cancer", use_container_width=True):
+        st.switch_page("pages/2_Lung_Cancer.py")
+    st.markdown("<div class='card'><div class='title'>Lung Cancer</div><div class='subtitle'>Lung cancer risk assessment</div></div>", unsafe_allow_html=True)
 
-with c3:
-    st.markdown("""
-    <div class="card">
-        <h2>🩸 Diabetes</h2>
-        <p>Blood sugar & diabetes risk</p>
-        <a href="/Diabetes"></a>
-    </div>
-    """, unsafe_allow_html=True)
+# ---------- DIABETES ----------
+with row1[2]:
+    if st.button("🩸 Diabetes", use_container_width=True):
+        st.switch_page("pages/3_Diabetes.py")
+    st.markdown("<div class='card'><div class='title'>Diabetes</div><div class='subtitle'>Blood sugar & diabetes risk</div></div>", unsafe_allow_html=True)
 
-st.markdown("<br>", unsafe_allow_html=True)
+# ---------- KIDNEY ----------
+with row2[0]:
+    if st.button("🧠 Kidney Disease", use_container_width=True):
+        st.switch_page("pages/4_Kidney_Disease.py")
+    st.markdown("<div class='card'><div class='title'>Kidney Disease</div><div class='subtitle'>Kidney function analysis</div></div>", unsafe_allow_html=True)
 
-# ---------- ROW 2 ----------
-c4, c5, c6 = st.columns(3)
+# ---------- THYROID ----------
+with row2[1]:
+    if st.button("🦋 Thyroid", use_container_width=True):
+        st.switch_page("pages/5_Thyroid.py")
+    st.markdown("<div class='card'><div class='title'>Thyroid</div><div class='subtitle'>Hormonal disorder detection</div></div>", unsafe_allow_html=True)
 
-with c4:
-    st.markdown("""
-    <div class="card">
-        <h2>🧠 Kidney Disease</h2>
-        <p>Kidney function analysis</p>
-        <a href="/Kidney_Disease"></a>
-    </div>
-    """, unsafe_allow_html=True)
-
-with c5:
-    st.markdown("""
-    <div class="card">
-        <h2>🦋 Thyroid</h2>
-        <p>Hormonal disorder detection</p>
-        <a href="/Thyroid"></a>
-    </div>
-    """, unsafe_allow_html=True)
-
-with c6:
-    st.markdown("""
-    <div class="card">
-        <h2>🦟 Dengue</h2>
-        <p>CBC based dengue detection</p>
-        <a href="/Dengue"></a>
-    </div>
-    """, unsafe_allow_html=True)
-
-st.markdown("<br><hr>", unsafe_allow_html=True)
-
-st.markdown(
-    "<p style='text-align:center; color:gray;'>Powered by AI | Medical & Educational Assistance</p>",
-    unsafe_allow_html=True
-)
+# ---------- DENGUE ----------
+with row2[2]:
+    if st.button("🦟 Dengue", use_container_width=True):
+        st.switch_page("pages/6_Dengue.py")
+    st.markdown("<div class='card'><div class='title'>Dengue</div><div class='subtitle'>CBC based dengue detection</div></div>", unsafe_allow_html=True)
