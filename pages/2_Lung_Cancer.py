@@ -5,7 +5,7 @@ import joblib
 st.set_page_config(page_title="Lung Cancer", layout="centered")
 st.title("🫁 Lung Cancer Prediction")
 
-model = joblib.load("models/lung_model.pkl")
+model = joblib.load("models/lung_cancer_model.pkl")
 
 st.markdown("---")
 
