@@ -14,71 +14,65 @@ model = joblib.load("models/heart_model.pkl")
 
 # ---------------- TITLE ----------------
 st.title("❤️ Heart Disease Prediction")
-st.write("Enter patient details to predict heart disease risk")
+st.write("Enter patient details to predict heart disease")
 
 st.divider()
 
-# ---------------- INPUTS (EXACT ORDER) ----------------
+# ---------------- INPUTS ----------------
+
 age = st.number_input("Age", min_value=1, max_value=120, value=45)
 
-sex = st.selectbox("Sex", ["Female", "Male"])
-sex = 1 if sex == "Male" else 0
+sex = st.selectbox("Sex", ["F", "M"])
+sex = 1 if sex == "M" else 0
 
 cp = st.selectbox(
     "Chest Pain Type",
-    options=[0, 1, 2, 3],
-    help="0: Typical Angina | 1: Atypical Angina | 2: Non-anginal Pain | 3: Asymptomatic"
+    ["ATA", "NAP", "ASY", "TA"]
 )
+cp_map = {"ATA": 0, "NAP": 1, "ASY": 2, "TA": 3}
+cp = cp_map[cp]
 
-trestbps = st.number_input("Resting Blood Pressure (trestbps)", 80, 200, 120)
-chol = st.number_input("Serum Cholesterol (chol)", 100, 600, 200)
+resting_bp = st.number_input("Resting Blood Pressure", 80, 200, 120)
+
+chol = st.number_input("Cholesterol", 0, 600, 200)
 
 fbs = st.selectbox("Fasting Blood Sugar > 120 mg/dl", ["No", "Yes"])
 fbs = 1 if fbs == "Yes" else 0
 
-restecg = st.selectbox(
-    "Resting ECG Results",
-    options=[0, 1, 2],
-    help="0: Normal | 1: ST-T abnormality | 2: Left ventricular hypertrophy"
+rest_ecg = st.selectbox(
+    "Resting ECG",
+    ["Normal", "ST", "LVH"]
 )
+restecg_map = {"LVH": 0, "Normal": 1, "ST": 2}
+rest_ecg = restecg_map[rest_ecg]
 
-thalach = st.number_input("Maximum Heart Rate Achieved (thalach)", 60, 220, 150)
+max_hr = st.number_input("Max Heart Rate", 60, 220, 150)
 
-exang = st.selectbox("Exercise Induced Angina", ["No", "Yes"])
-exang = 1 if exang == "Yes" else 0
+ex_angina = st.selectbox("Exercise Induced Angina", ["N", "Y"])
+ex_angina = 1 if ex_angina == "Y" else 0
 
-oldpeak = st.number_input("ST Depression (oldpeak)", 0.0, 10.0, 1.0)
+oldpeak = st.number_input("Oldpeak (ST Depression)", 0.0, 10.0, 1.0)
 
-slope = st.selectbox(
-    "Slope of Peak Exercise ST Segment",
-    options=[0, 1, 2],
-    help="0: Upsloping | 1: Flat | 2: Downsloping"
-)
-
-ca = st.selectbox("Number of Major Vessels (ca)", options=[0, 1, 2, 3, 4])
-
-thal = st.selectbox(
-    "Thalassemia (thal)",
-    options=[0, 1, 2, 3],
-    help="0: Normal | 1: Fixed Defect | 2: Reversible Defect | 3: Unknown"
-)
+st_slope = st.selectbox("ST Slope", ["Up", "Flat", "Down"])
+slope_map = {"Down": 0, "Flat": 1, "Up": 2}
+st_slope = slope_map[st_slope]
 
 # ---------------- PREDICTION ----------------
 st.divider()
 
-if st.button("🔍 Predict Heart Disease"):
+if st.button("🔍 Predict"):
     try:
-        data = np.array([[age, sex, cp, trestbps, chol, fbs,
-                          restecg, thalach, exang, oldpeak,
-                          slope, ca, thal]])
+        data = np.array([[age, sex, cp, resting_bp, chol, fbs,
+                          rest_ecg, max_hr, ex_angina,
+                          oldpeak, st_slope]])
 
-        result = model.predict(data)[0]
+        prediction = model.predict(data)[0]
 
-        if result == 1:
+        if prediction == 1:
             st.error("⚠️ Heart Disease Detected")
         else:
             st.success("✅ No Heart Disease Detected")
 
     except Exception as e:
-        st.error("Prediction failed. Please check model or inputs.")
+        st.error("Prediction failed")
         st.code(str(e))
